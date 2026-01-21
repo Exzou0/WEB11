@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
       <li><a href="/api/products">View All Products (/api/products)</a></li>
       <li><a href="/api/products?minPrice=50&sort=price">Sort > 50 </a></li>
       <li><a href="/api/products?fields=name,price">Projection</a></li>
-      <li><a href="/api/version">Current version</a></li>
+      <li><a href="/version">Current version</a></li>
     </ul>
   `);
 });
