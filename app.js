@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
       <li><a href="/api/products">View All Products (/api/products)</a></li>
       <li><a href="/api/products?minPrice=50&sort=price">Sort > 50 </a></li>
       <li><a href="/api/products?fields=name,price">Projection</a></li>
+      <li><a href="/api/version">Current version</a></li>
     </ul>
   `);
 });
@@ -79,6 +80,13 @@ app.get('/api/products', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Server Error' });
   }
+});
+
+app.get('/version', (req, res) => {
+    res.json({
+        "version": "1.1",
+        "updatedAt": "2026-01-21" 
+    });
 });
 
 app.use((req, res) => res.status(404).json({ error: 'API endpoint not found' }));
