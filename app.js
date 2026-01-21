@@ -1,18 +1,18 @@
-require('dotenv').config(); // Load variables from .env
+require('dotenv').config(); 
 const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb');
-
-const PORT = process.env.PORT || 3000; // Use environment variable
-const MONGO_URI = process.env.MONGO_URI; // Use environment variable
-
-const express = require('express');
-const { MongoClient } = require('mongodb');
 
 const app = express();
 app.use(express.json()); 
 
-const client = new MongoClient('mongodb://127.0.0.1:27017');
+
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
+
 let productsCollection;
+
+
+const client = new MongoClient(MONGO_URI);uctsCollection;
 
 client.connect()
   .then(() => {
