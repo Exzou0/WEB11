@@ -82,6 +82,51 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+app.get('/api/products/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid ID format' });
+
+    const product = await productsCollection.findOne({ _id: new ObjectId(id) });
+    if (!product) return res.status(404).json({ error: 'Product not found' });
+
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+app.put('/api/products/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid ID' });
+
+    const result = await productsCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: req.body } 
+    );
+
+    if (result.matchedCount === 0) return res.status(404).json({ error: 'Not found' });
+    res.json({ message: 'Updated successfully', result });
+  } catch (error) {
+    res.status(500).json({ error: 'Update error' });
+  }
+});
+
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid ID' });
+
+    const result = await productsCollection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) return res.status(404).json({ error: 'Not found' });
+    res.json({ message: 'Deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Delete error' });
+  }
+});
+
 app.get('/version', (req, res) => {
     res.json({
         "version": "1.1",
