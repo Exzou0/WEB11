@@ -12,7 +12,7 @@ const MONGO_URI = process.env.MONGO_URI;
 let productsCollection;
 
 
-const client = new MongoClient(MONGO_URI);uctsCollection;
+const client = new MongoClient(MONGO_URI);
 
 client.connect()
   .then(() => {
